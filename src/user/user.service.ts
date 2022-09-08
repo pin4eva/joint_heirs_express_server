@@ -14,7 +14,7 @@ import { User, UserDocument } from "./user.model";
 export class UserService {
   async getUsers() {
     try {
-      const users = await User.find();
+      const users = await User.find().select("-password");
       return users;
     } catch (error) {
       throw error;
