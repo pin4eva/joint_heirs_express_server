@@ -16,17 +16,6 @@ export class UserController {
       }
     });
 
-    this.router.post("/signup", async (req, res) => {
-      try {
-        const input = req.body;
-        const data = await new UserService().signup(input);
-
-        res.send(data);
-      } catch (error) {
-        handleError(error, res);
-      }
-    });
-
     return this.router;
   }
 }

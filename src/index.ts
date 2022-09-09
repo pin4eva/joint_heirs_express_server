@@ -1,4 +1,5 @@
 import express from "express";
+import { AuthController } from "./auth/auth.controller";
 import { connectDB } from "./db/init-db";
 import { UserController } from "./user/user.controller";
 import { config } from "./utils/config.utils";
@@ -10,9 +11,11 @@ const PORT = Number(process.env.PORT) || 8000;
 class Server {
   private app;
   private userRoutes;
+  private authRoutes;
   constructor() {
     this.app = express();
     this.userRoutes = new UserController().loadRoutes();
+    this.authRoutes = new AuthController().loadRoutes();
   }
   public async initDB() {
     await connectDB(config.MONGO_URI);
@@ -26,6 +29,7 @@ class Server {
     });
 
     this.app.use("/user", this.userRoutes);
+    this.app.use("/auth", this.authRoutes);
   }
 
   public run() {

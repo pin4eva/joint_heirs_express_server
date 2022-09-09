@@ -4,7 +4,6 @@ export type UserDocument = Document & { _id: Types.ObjectId };
 
 const UserSchema = new Schema({
   email: { type: String, required: true },
-  password: { type: String, required: true },
   name: { type: String },
 });
 
