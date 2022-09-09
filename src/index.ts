@@ -3,7 +3,7 @@ import { AuthController } from "./auth/auth.controller";
 import { connectDB } from "./db/init-db";
 import { UserController } from "./user/user.controller";
 import { config } from "./utils/config.utils";
-
+import cors from "cors";
 // initialize express
 // const app = express();
 const PORT = Number(process.env.PORT) || 8000;
@@ -24,6 +24,7 @@ class Server {
   public async loadControllers() {
     // bodyParser
     this.app.use(express.json());
+    this.app.use(cors({ origin: true }));
     this.app.get("/", (_, res) => {
       res.send("Welcome");
     });
