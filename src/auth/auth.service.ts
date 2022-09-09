@@ -59,6 +59,17 @@ export class AuthService {
     }
   }
 
+  // get me
+  async getMe(id: string) {
+    try {
+      const user = await User.findById(id);
+      if (!user) throw new Error("User not found");
+      return user;
+    } catch (error) {
+      throw new Error(String(error));
+    }
+  }
+
   // verify email
 
   // reset password
@@ -66,7 +77,19 @@ export class AuthService {
   // change password
 
   // delete auth
-
+  public async deleteAuth(id: string) {
+    try {
+      const auth = await Auth.findById(id);
+      if (!auth) throw new Error("invalid id");
+      await auth.remove();
+      return {
+        id: auth.id,
+        email: auth.email,
+      };
+    } catch (error) {
+      throw new Error(String(error));
+    }
+  }
   // hash password
   private hashPassword(password: string): string {
     const hashedPassword = hashSync(password, 10);

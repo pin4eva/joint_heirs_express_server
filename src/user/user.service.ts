@@ -24,6 +24,21 @@ export class UserService {
     }
   }
 
+  public async deleteUser(id: string) {
+    try {
+      const user = await this.findUserById(id);
+
+      await user.remove();
+      return user;
+    } catch (error) {
+      throw new Error(String(error));
+    }
+  }
+
+  public async getUserById(id: string) {
+    return await this.findUserById(id);
+  }
+
   private async findUserById(id: string): Promise<UserDocument> {
     try {
       const user = await User.findById(id);
