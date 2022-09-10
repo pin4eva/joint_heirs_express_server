@@ -4,6 +4,7 @@ import { connectDB } from "./db/init-db";
 import { UserController } from "./user/user.controller";
 import { config } from "./utils/config.utils";
 import cors from "cors";
+import { DepartmentController } from "./department/department.controller";
 // initialize express
 // const app = express();
 const PORT = Number(process.env.PORT) || 8000;
@@ -12,6 +13,7 @@ class Server {
   private app;
   private userRoutes;
   private authRoutes;
+  private department = new DepartmentController().loadRoutes();
   constructor() {
     this.app = express();
     this.userRoutes = new UserController().loadRoutes();
@@ -31,6 +33,7 @@ class Server {
 
     this.app.use("/user", this.userRoutes);
     this.app.use("/auth", this.authRoutes);
+    this.app.use("/department", this.department);
   }
 
   public run() {
