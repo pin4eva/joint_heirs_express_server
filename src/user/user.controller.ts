@@ -16,6 +16,14 @@ export class UserController {
         handleError(error, res);
       }
     });
+    this.router.post("/upload", async (req, res) => {
+      try {
+        const user = await new UserService().uploadImage(req.body);
+        res.send(user);
+      } catch (error) {
+        handleError(error, res);
+      }
+    });
     this.router.get(
       "/single/:id",
       authGuard,
