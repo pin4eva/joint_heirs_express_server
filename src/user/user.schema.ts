@@ -1,6 +1,6 @@
-import { Document, model, Schema, Types } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
-export type UserDocument = Document & { _id: Types.ObjectId };
+export type UserDocument = Document & IUser;
 class IUser {
   email: string;
   name: string;

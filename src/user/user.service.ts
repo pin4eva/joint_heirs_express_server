@@ -14,7 +14,7 @@ export class UserService {
     }
   }
 
-  public async updateUser(input: UpdateUserInput) {
+  public async updateUser(input: UpdateUserInput): Promise<UserDocument> {
     try {
       const user = await this.findUserById(input.id);
       Object.assign(user, input);
