@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { User, UserDocument } from "../user/user.model";
+import { User, UserDocument } from "../user/user.schema";
 import { config } from "../utils/config.utils";
 
 export interface IRequest extends Request {

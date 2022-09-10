@@ -2,7 +2,7 @@
 
 import { cloudinaryUpload } from "../utils/cloudinaryUpload";
 import { UpdateUserInput, UploadImageInput } from "./user.dto";
-import { User, UserDocument } from "./user.model";
+import { User, UserDocument } from "./user.schema";
 
 export class UserService {
   async getUsers() {

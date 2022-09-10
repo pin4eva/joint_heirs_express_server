@@ -1,4 +1,3 @@
-import { ObjectId, Types } from "mongoose";
 import { UserService } from "../user/user.service";
 import {
   AddMembersInput,
@@ -7,11 +6,11 @@ import {
   UpdateDepartmentHODInput,
   UpdateDepartmentInput,
 } from "./department.dto";
-import { Department } from "./department.schema";
+import { Department, IDepartment } from "./department.schema";
 
 export class DepartmentService {
   // create department
-  async createDepartment(input: CreateDepartmentInput) {
+  async createDepartment(input: CreateDepartmentInput): Promise<IDepartment> {
     try {
       const department = new Department(input);
       if (input.hod) {
