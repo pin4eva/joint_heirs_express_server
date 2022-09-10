@@ -1,9 +1,9 @@
 import { compareSync, hashSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { User } from "../user/user.model";
+import { User } from "../user/user.schema";
 import { config } from "../utils/config.utils";
 import { LoginInput, LoginResponse, SignupInput } from "./auth.dto";
-import { Auth } from "./auth.model";
+import { Auth } from "./auth.schema";
 
 export class AuthService {
   // signup

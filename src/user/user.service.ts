@@ -2,7 +2,7 @@
 
 import { cloudinaryUpload } from "../utils/cloudinaryUpload";
 import { UpdateUserInput, UploadImageInput } from "./user.dto";
-import { User, UserDocument } from "./user.model";
+import { User, UserDocument } from "./user.schema";
 
 export class UserService {
   async getUsers() {
@@ -14,7 +14,7 @@ export class UserService {
     }
   }
 
-  public async updateUser(input: UpdateUserInput) {
+  public async updateUser(input: UpdateUserInput): Promise<UserDocument> {
     try {
       const user = await this.findUserById(input.id);
       Object.assign(user, input);
