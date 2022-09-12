@@ -1,15 +1,21 @@
+import { cloudinaryUpload } from "../utils/cloudinaryUpload";
 import { CreateSermonInput, UpdateSermonInput } from "./sermon.dto";
 import { Sermon } from "./sermon.model";
 
 export class SermonService {
   //create sermon
   public async createSermon(input: CreateSermonInput) {
+    const { image } = input;
     try {
       const isSermon = await Sermon.findOne({
         title: input.title,
       });
       if (isSermon) throw new Error("Sermon already exist");
       const sermon = new Sermon(input);
+      if (image) {
+        const imageUrl = await cloudinaryUpload(image);
+        sermon.image = imageUrl;
+      }
       await sermon.save();
       return sermon;
     } catch (error) {
