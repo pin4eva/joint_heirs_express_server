@@ -6,6 +6,7 @@ import { config } from "./utils/config.utils";
 import { EventController } from "./event/event.controller";
 import * as cors from "cors";
 import { DepartmentController } from "./department/department.controller";
+import { SermonController } from "./sermon/sermon.controller";
 // initialize express
 const app = express();
 const PORT = Number(process.env.PORT) || 8000;
@@ -14,6 +15,7 @@ class Server {
   private userRoutes = new UserController().loadRoutes();
   private authRoutes = new AuthController().loadRoutes();
   private department = new DepartmentController().loadRoutes();
+  private sermonRoutes = new SermonController().loadRoutes();
   private eventRoutes = new EventController().loadRoutes();
   public async initDB() {
     await connectDB(config.MONGO_URI);
@@ -30,6 +32,7 @@ class Server {
     app.use("/user", this.userRoutes);
     app.use("/auth", this.authRoutes);
     app.use("/department", this.department);
+    app.use("/sermon", this.sermonRoutes);
     app.use("/event", this.eventRoutes);
   }
 
