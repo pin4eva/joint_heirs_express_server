@@ -38,12 +38,10 @@ export class UserService {
 
   public async uploadImage(input: UploadImageInput) {
     try {
+      const user = await this.findUserById(input.id);
       const imageUrl = await cloudinaryUpload(input.image);
-      const user = await User.findByIdAndUpdate(
-        input.id,
-        { $set: { image: imageUrl } },
-        { new: true }
-      );
+      user.image = imageUrl;
+      await user.save();
       return user;
     } catch (error) {
       throw new Error(error);

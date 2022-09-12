@@ -23,7 +23,7 @@ class Server {
 
   public async loadControllers() {
     // bodyParser
-    app.use(express.json());
+    app.use(express.json({ limit: "50mb" }));
     app.use(cors({ origin: true }));
     app.get("/", (_, res) => {
       res.send("Welcome");
