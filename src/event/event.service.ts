@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-catch */
 
+import { cloudinaryUpload } from "../utils/cloudinaryUpload";
 import { CreateEventInput, UpdateEventInput } from "./event.dto";
 import { Event } from "./event.model";
 
@@ -15,11 +16,15 @@ export class EventService {
 
   // create events
   public async createEvent(input: CreateEventInput) {
-    const { endDate, isSingleDate } = input;
+    const { endDate, isSingleDate, image } = input;
     try {
       const event = new Event(input);
       if (!isSingleDate && !endDate) {
         throw new Error("Please include an end date");
+      }
+      if (image) {
+        const img = await cloudinaryUpload(image);
+        event.image = img;
       }
       await event.save();
       return event;
