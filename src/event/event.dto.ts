@@ -1,7 +1,10 @@
 export interface EventInput {
-  general: string;
-  children: string;
-  men: string;
-  women: string;
-  youth: string;
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  venue: string;
+  startDate: string;
+  endDate: string;
+  imageUrl: string;
 }

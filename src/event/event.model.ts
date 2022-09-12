@@ -6,11 +6,13 @@ export type EventDocument = Document & {
 };
 
 const EventSchema = new Schema({
-  general: { type: String },
-  children: { type: String },
-  men: { type: String },
-  women: { type: String },
-  youth: { type: String },
+  title: { type: String },
+  description: { type: String },
+  category: { type: String },
+  venue: { type: String },
+  startDate: { type: Date },
+  endDate: { type: Date },
+  imageUrl: { type: String },
 });
 
 export const Event = model("Event", EventSchema);
