@@ -1,7 +1,8 @@
 /* eslint-disable no-useless-catch */
 
-import { UpdateUserInput } from "./user.dto";
-import { User, UserDocument } from "./user.model";
+import { cloudinaryUpload } from "../utils/cloudinaryUpload";
+import { UpdateUserInput, UploadImageInput } from "./user.dto";
+import { User, UserDocument } from "./user.schema";
 
 export class UserService {
   async getUsers() {
@@ -13,7 +14,7 @@ export class UserService {
     }
   }
 
-  public async updateUser(input: UpdateUserInput) {
+  public async updateUser(input: UpdateUserInput): Promise<UserDocument> {
     try {
       const user = await this.findUserById(input.id);
       Object.assign(user, input);
@@ -31,7 +32,21 @@ export class UserService {
       await user.remove();
       return user;
     } catch (error) {
-      throw new Error(String(error));
+      throw new Error(error);
+    }
+  }
+
+  public async uploadImage(input: UploadImageInput) {
+    try {
+      const imageUrl = await cloudinaryUpload(input.image);
+      const user = await User.findByIdAndUpdate(
+        input.id,
+        { $set: { image: imageUrl } },
+        { new: true }
+      );
+      return user;
+    } catch (error) {
+      throw new Error(error);
     }
   }
 

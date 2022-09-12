@@ -1,0 +1,4 @@
+previewsEnabled: true
+
+services:
+  - type: web

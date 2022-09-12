@@ -1,44 +1,40 @@
-import express from "express";
+import * as express from "express";
 import { AuthController } from "./auth/auth.controller";
 import { connectDB } from "./db/init-db";
 import { UserController } from "./user/user.controller";
 import { config } from "./utils/config.utils";
-import cors from "cors";
 import { EventController } from "./event/event.controller";
+import * as cors from "cors";
+import { DepartmentController } from "./department/department.controller";
 // initialize express
-// const app = express();
+const app = express();
 const PORT = Number(process.env.PORT) || 8000;
 
 class Server {
-  private app;
-  private userRoutes;
-  private authRoutes;
-  private eventRoutes;
-  constructor() {
-    this.app = express();
-    this.userRoutes = new UserController().loadRoutes();
-    this.authRoutes = new AuthController().loadRoutes();
-    this.eventRoutes = new EventController().loadRoutes();
-  }
+  private userRoutes = new UserController().loadRoutes();
+  private authRoutes = new AuthController().loadRoutes();
+  private department = new DepartmentController().loadRoutes();
+  private eventRoutes = new EventController().loadRoutes();
   public async initDB() {
     await connectDB(config.MONGO_URI);
   }
 
   public async loadControllers() {
     // bodyParser
-    this.app.use(express.json());
-    this.app.use(cors({ origin: true }));
-    this.app.get("/", (_, res) => {
+    app.use(express.json());
+    app.use(cors({ origin: true }));
+    app.get("/", (_, res) => {
       res.send("Welcome");
     });
 
-    this.app.use("/user", this.userRoutes);
-    this.app.use("/auth", this.authRoutes);
-    this.app.use("/event", this.eventRoutes);
+    app.use("/user", this.userRoutes);
+    app.use("/auth", this.authRoutes);
+    app.use("/department", this.department);
+    app.use("/event", this.eventRoutes);
   }
 
   public run() {
-    this.app.listen(PORT, () => {
+    app.listen(PORT, () => {
       console.log(`server started on port ${PORT}`);
     });
   }
@@ -56,6 +52,7 @@ class Server {
     await connectDB(config.MONGO_URI);
     // app.listen(PORT, () => console.log(`server started on port ${PORT}`));
   } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 })();
