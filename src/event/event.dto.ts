@@ -5,7 +5,7 @@ export interface CreateEventInput {
   venue: string;
   startDate: string;
   endDate: string;
-  imageUrl: string;
+  image: string;
   isSingleDate: string;
 }
 
