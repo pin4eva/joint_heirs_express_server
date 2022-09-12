@@ -1,10 +1,9 @@
 export interface CreateSermonInput {
   videoLink: string;
   audioLink: string;
-  text: string;
-  imageTumbnail: string;
+  body: string;
+  image: string;
   date: string;
-  time: string;
   title: string;
   sermonBy: string;
 }

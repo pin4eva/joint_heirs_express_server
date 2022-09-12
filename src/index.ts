@@ -14,7 +14,7 @@ class Server {
   private userRoutes = new UserController().loadRoutes();
   private authRoutes = new AuthController().loadRoutes();
   private department = new DepartmentController().loadRoutes();
-  private sermonRoutes = new SermonController().LoadRoutes();
+  private sermonRoutes = new SermonController().loadRoutes();
 
   public async initDB() {
     await connectDB(config.MONGO_URI);

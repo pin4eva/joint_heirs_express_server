@@ -6,9 +6,7 @@ export class SermonService {
   public async createSermon(input: CreateSermonInput) {
     try {
       const isSermon = await Sermon.findOne({
-        videoLink: input.videoLink,
-        audioLink: input.audioLink,
-        text: input.text,
+        title: input.title,
       });
       if (isSermon) throw new Error("Sermon already exist");
       const sermon = new Sermon(input);

@@ -1,11 +1,11 @@
 import { Request, Response, Router } from "express";
 import { handleError } from "../utils/express.utils";
-import { SermonService } from "../../../express-todo/src/sermon/sermon.service";
+import { SermonService } from "./sermon.service";
 
 export class SermonController {
   router = Router();
 
-  public LoadRoutes() {
+  public loadRoutes() {
     this.router.post("/", async (req, res) => {
       try {
         const sermons = await new SermonService().createSermon(req.body);
@@ -24,7 +24,7 @@ export class SermonController {
       }
     });
 
-    this.router.put("/update", async (req, res) => {
+    this.router.put("/", async (req, res) => {
       try {
         const sermon = await new SermonService().updateSermon(req.body);
         return res.status(200).json(sermon);

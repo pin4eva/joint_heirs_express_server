@@ -5,12 +5,11 @@ export type SermonDocument = Document & {
 };
 
 const SermonSchema = new Schema({
-  videoLink: { type: String, required: true },
-  audioLink: { type: String, required: true },
-  text: { type: String, required: true },
-  imageTumbnail: { type: String, required: true },
-  date: { type: String, required: true },
-  time: { type: String, required: true },
+  videoLink: { type: String },
+  audioLink: { type: String },
+  body: { type: String, required: true },
+  image: { type: String, required: true },
+  date: { type: Date, required: true },
   title: { type: String, required: true },
   sermonBy: { type: String, required: true },
 });
