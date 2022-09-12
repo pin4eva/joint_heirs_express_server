@@ -3,6 +3,7 @@ import { AuthController } from "./auth/auth.controller";
 import { connectDB } from "./db/init-db";
 import { UserController } from "./user/user.controller";
 import { config } from "./utils/config.utils";
+import { EventController } from "./event/event.controller";
 import * as cors from "cors";
 import { DepartmentController } from "./department/department.controller";
 import { SermonController } from "./sermon/sermon.controller";
@@ -15,7 +16,7 @@ class Server {
   private authRoutes = new AuthController().loadRoutes();
   private department = new DepartmentController().loadRoutes();
   private sermonRoutes = new SermonController().loadRoutes();
-
+  private eventRoutes = new EventController().loadRoutes();
   public async initDB() {
     await connectDB(config.MONGO_URI);
   }
@@ -32,6 +33,7 @@ class Server {
     app.use("/auth", this.authRoutes);
     app.use("/department", this.department);
     app.use("/sermon", this.sermonRoutes);
+    app.use("/event", this.eventRoutes);
   }
 
   public run() {
@@ -47,9 +49,10 @@ class Server {
     await server.initDB();
 
     await server.loadControllers();
+
     server.run();
 
-    // await connectDB(config.MONGO_URI);
+    await connectDB(config.MONGO_URI);
     // app.listen(PORT, () => console.log(`server started on port ${PORT}`));
   } catch (error) {
     console.error(error);
